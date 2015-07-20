@@ -1,9 +1,5 @@
 package com.featuredect.activity;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
-
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.MatOfPoint3f;
 import org.opencv.core.Point;
@@ -13,36 +9,19 @@ import org.opencv.core.Size;
 import PHM.Resection.QuaternionSolver;
 import PHM.Resection.ResectionHelper;
 import android.app.Activity;
-import android.media.ExifInterface;
 import android.os.Bundle;
-import android.provider.ContactsContract.Directory;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.beans.ExternalBeans;
 import com.component.SQLiteOrmHelperPHM;
-import com.drew.imaging.jpeg.JpegMetadataReader;
-import com.drew.imaging.jpeg.JpegProcessingException;
-import com.drew.metadata.Metadata;
-import com.drew.metadata.MetadataException;
-import com.drew.metadata.Tag;
-import com.drew.metadata.exif.ExifIFD0Directory;
-import com.drew.metadata.exif.ExifInteropDirectory;
-import com.drew.metadata.exif.ExifReader;
-import com.drew.metadata.jfif.JfifDirectory;
-import com.drew.metadata.jpeg.JpegDirectory;
 import com.keypointdect.R;
-import com.opecvutils.MatOutputer;
 import com.system.GlobleParam;
 import com.system.SystemUtils;
-import com.tool.BitmapHelper;
-import com.tool.ExifInfoHelper;
 import com.tool.ToastHelper;
 import com.tool.SqliteHelperOrm.SQLiteOrmSDContext;
 
@@ -75,13 +54,19 @@ public class AExternalSolve extends Activity
 	{
 		// TODO Auto-generated method stub
 		super.onStart();
-		PrepareBeans();
-		
-		UpdatebyBeans();
-		Test();
+		if(flag_IsSaveExif)
+		{
+			PrepareBeans();
+		}
+		else 
+		{
+			PrepareBeansFormDB();
+		}
 		UpdatebyBeans();
 	}
 	
+	
+
 	void Initialiazation()
 	{
 		tv_name=(TextView)findViewById(R.id.aexternalsolve_tv_name);
@@ -114,6 +99,8 @@ public class AExternalSolve extends Activity
 		tv_z.setText(""+beans.getZ());
 		tv_DPI.setText(""+beans.getDPI());
 		cb_exif.setChecked(flag_IsSaveExif);
+		//作为二期功能暂不实现
+		cb_exif.setVisibility(View.GONE);
 	}
 	
 	/**
@@ -123,63 +110,9 @@ public class AExternalSolve extends Activity
 	{
 		String imagepath=SystemUtils.ConvetThumbnailPathToImage(GlobleParam.Create().getCurrentImagePath());
 		beans=new ExternalBeans();
-		beans.setImage(imagepath);
-		//测试用用代码，用于查看DPI获取
-		//BitmapHelper helper=new BitmapHelper(imagepath);
-		//beans.setDPI(helper.getDPI());
-		//Log.d("demo", ""+helper.getDPI());
-		//测试用代码，用于完成模拟解算结果的存储
-		beans.setDPI(96);
-		beans.setKappa(12.4);
-		beans.setOmiga(34.5);
-		beans.setPhi(33.22);
-		beans.setX(123);
-		beans.setY(234);
-		beans.setZ(345);
-		//测试用代码，用于从exif中获取DPI
-		/*try
-		{	
-			Metadata data=JpegMetadataReader.readMetadata(new File(beans.getImage()));
-			//int result=data.getDirectory(JfifDirectory.class).getInt(JfifDirectory.TAG_JFIF_RESX);
-			Iterator<com.drew.metadata.Directory> directions=data.getDirectories().iterator();
-			while (directions.hasNext())
-			{
-				com.drew.metadata.Directory temp=directions.next();
-				Log.i("demo", temp.getName());
-				Iterator<Tag> tags=temp.getTags().iterator();
-				while (tags.hasNext())
-				{
-					Log.d("demo", tags.next().toString());
-				}
-				
-			}
-			
-			//Toast.makeText(AExternalSolve.this, "result is "+result, Toast.LENGTH_LONG).show();
-		}
-		catch (JpegProcessingException e)
-		{
-			e.printStackTrace();
-			Toast.makeText(AExternalSolve.this, "JpegProcessingException", Toast.LENGTH_LONG).show();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-			Toast.makeText(AExternalSolve.this, "IOException", Toast.LENGTH_LONG).show();
-		}*/
-		/*catch (MetadataException e)
-		{
-			e.printStackTrace();
-			Toast.makeText(AExternalSolve.this, "MetadataException", Toast.LENGTH_LONG).show();
-		}*/
+		beans.setImage(imagepath);	
 		
-		
-	}
-	
-	/**
-	 * 测试后方交会解算包
-	 * */
-	private void Test()
-	{
+		//以下为测试方法
 		ResectionHelper resectionHelper=new ResectionHelper(60, new Size(1280, 768));
 		
 		Point[] ImagePoints=new Point[3];
@@ -209,8 +142,27 @@ public class AExternalSolve extends Activity
 		beans.setX(resultT[0]);
 		beans.setY(resultT[1]);
 		beans.setZ(resultT[2]);
-
 	}
+	
+	/**
+	 * 从数据库中根据全局变量获取已经解算的外方位元素信息
+	 * */
+	private void PrepareBeansFormDB()
+	{
+		SQLiteOrmSDContext context=new SQLiteOrmSDContext(AExternalSolve.this, GlobleParam.Create());
+		SQLiteOrmHelperPHM phm=new SQLiteOrmHelperPHM(context);
+		String imagepath=SystemUtils.ConvetThumbnailPathToImage(GlobleParam.Create().getCurrentImagePath());
+		try
+		{
+			beans=phm.getREExternalBeans().queryForEq("Image", imagepath).get(0);
+		}
+		catch (Exception e)
+		{
+			ToastHelper.ShowNotFoundFileToast(AExternalSolve.this);
+		}
+		phm.close();
+	}
+	
 	
 	private View.OnClickListener btn_sureClickListener=new View.OnClickListener()
 	{
@@ -242,6 +194,7 @@ public class AExternalSolve extends Activity
 			
 		}
 	};
+	
 	//作为二期功能，暂时不考虑实现
 	private OnCheckedChangeListener cb_saveexifChangeListener=new OnCheckedChangeListener()
 	{

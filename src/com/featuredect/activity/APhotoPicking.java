@@ -113,38 +113,47 @@ public class APhotoPicking extends Activity
 			//确定按钮事件监听
 			if(v.getId()==R.id.aphotopicking_sure)
 			{
-				GlobleParam.Create().setCurrentImagePath(adapter.getPickedImagePath()[0]);
-				ListDialog dialog=new ListDialog(APhotoPicking.this, "挑選結果");
-				dialog.SetList(DirectoryUtils.SpiltFullPathToNames(adapter.getPickedImagePath()), null);
-				dialog.SetPlistener("取消", null);
-				dialog.SetNlistener("確定", new DialogInterface.OnClickListener()
+				//判断是否未执行挑选
+				if(adapter.IsNoOneSelected()==false)
 				{
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which)
+					GlobleParam.Create().setCurrentImagePath(adapter.getPickedImagePath()[0]);
+					ListDialog dialog=new ListDialog(APhotoPicking.this, "挑選結果");
+					dialog.SetList(DirectoryUtils.SpiltFullPathToNames(adapter.getPickedImagePath()), null);
+					dialog.SetPlistener("取消", null);
+					dialog.SetNlistener("確定", new DialogInterface.OnClickListener()
 					{
 						
-						Intent intent=new Intent();
-						switch (Flag_PickState)
+						@Override
+						public void onClick(DialogInterface dialog, int which)
 						{
-							case APhotoPicking.PickState_Dect:
+							
+							Intent intent=new Intent();
+							switch (Flag_PickState)
 							{
-								//intent.setClass(APhotoPicking.this, ATouchToPickPoint.class);
-								//测试用代码，用于完成后交模块测试
-								intent.setClass(APhotoPicking.this, AExternalSolve.class);
-							}break;
-							case APhotoPicking.PickState_Solve:
-							{
-								intent.setClass(APhotoPicking.this, AImageControlInput.class);
-							}break;
-							default:
-								break;
+								case APhotoPicking.PickState_Dect:
+								{
+									intent.setClass(APhotoPicking.this, ATouchToPickPoint.class);
+									//测试用代码，用于完成后交模块测试
+									//intent.setClass(APhotoPicking.this, AExternalSolve.class);
+								}break;
+								case APhotoPicking.PickState_Solve:
+								{
+									intent.setClass(APhotoPicking.this, AImageControlInput.class);
+								}break;
+								default:
+									break;
+							}
+							
+							startActivity(intent);
 						}
-						
-						startActivity(intent);
-					}
-				});
-				dialog.Create().show();
+					});
+					dialog.Create().show();
+				}
+				else 
+				{
+					ToastHelper.ShowDataNotPick(APhotoPicking.this);
+				}
+				
 			}
 			//取消按钮事件监听
 			else

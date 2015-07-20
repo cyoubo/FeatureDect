@@ -101,4 +101,17 @@ public class PhotosPickingAdapter extends PhotoThumbAdapter
 		ig_image.setImageBitmap(ModifyBitmapSize(helper.getBitmap()));
 		return convertView;
 	}
+	/**
+	 * 检验是否未执行任何挑选
+	 * @return ture则为未挑选，否则为false
+	 * */
+	public boolean IsNoOneSelected()
+	{
+		boolean result=false;
+		for (boolean status : this.isPicked)
+		{
+			result=result||status;
+		}
+		return !result;
+	}
 }

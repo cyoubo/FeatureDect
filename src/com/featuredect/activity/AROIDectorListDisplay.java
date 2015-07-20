@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CheckedTextView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,7 +49,7 @@ public class AROIDectorListDisplay extends Activity
 	private LinearLayout linearLayout;
 	private KeyPointImageView imageView;
 	private TextView currentindexView;
-	private CheckedTextView cktv_more;
+	private ImageView ig_more;
 	
 	
 	private Mat mImageMat;
@@ -288,8 +289,8 @@ public class AROIDectorListDisplay extends Activity
 		imageView=new KeyPointImageView(AROIDectorListDisplay.this);
 		adapter=new KeyPointAdapter(AROIDectorListDisplay.this);
 		currentindexView=(TextView)findViewById(R.id.aroidectorlistdisplay_tv_currentindex);
-		cktv_more=(CheckedTextView)findViewById(R.id.aroidectorlistdisplay_tv_more);
-		cktv_more.setOnClickListener(checkviewListener);
+		ig_more=(ImageView)findViewById(R.id.aroidectorlistdisplay_tv_more);
+		ig_more.setOnClickListener(checkviewListener);
 		
 	}
 	

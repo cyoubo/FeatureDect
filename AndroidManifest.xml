@@ -18,8 +18,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.featuredect.activity.ATouchToPickPoint"></activity>
-        <activity android:name="com.featuredect.activity.APhotoPicking"></activity>
+        <activity android:name="com.featuredect.activity.ATouchToPickPoint" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+        <activity android:name="com.featuredect.activity.APhotoPicking" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity android:name="com.featuredect.activity.AWaitLoading">
              <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,13 +27,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.featuredect.activity.AROIDectorListDisplay"></activity>
-        <activity android:name="com.featuredect.activity.ADectParamSet" android:theme="@android:style/Theme.Holo.Dialog"></activity>
-        <activity android:name="com.featuredect.activity.AROIDectResultDisplay"></activity>
-        <activity android:name="com.featuredect.activity.AImagePointListDisplay"></activity>
+        <activity android:name="com.featuredect.activity.AROIDectorListDisplay" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+        <activity android:name="com.featuredect.activity.ADectParamSet" android:theme="@android:style/Theme.Holo.Light.Dialog"></activity>
+        <activity android:name="com.featuredect.activity.AROIDectResultDisplay" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+        <activity android:name="com.featuredect.activity.AImagePointListDisplay" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity android:name="com.featuredect.activity.ABinaryTest" android:theme="@android:style/Theme.Holo.NoActionBar"></activity>
-        <activity android:name="com.featuredect.activity.AFunctionSelected"></activity>
-        <activity android:name="com.featuredect.activity.AImageControlInput" android:screenOrientation="landscape" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+        <activity android:name="com.featuredect.activity.AFunctionSelected" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+        <activity android:name="com.featuredect.activity.AImageControlInput" android:screenOrientation="landscape" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity android:name="com.featuredect.activity.AExternalSolve" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
     </application>
 

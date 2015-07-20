@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroud"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -12,21 +13,20 @@
         <TextView
             android:id="@+id/aroidectorlistdisplay_tv_currentindex"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.80"
             android:gravity="center"
             android:text="cyoubo"
-            android:layout_weight="0.8"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <CheckedTextView
+        <ImageView 
             android:id="@+id/aroidectorlistdisplay_tv_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="参数设置"
+            android:src="@drawable/icon_set"
             android:layout_weight="0.2"
             android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
+            />
     </LinearLayout>
 
     <LinearLayout

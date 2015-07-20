@@ -3,6 +3,7 @@ package com.component;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.opencv.core.Core;
 import org.opencv.core.MatOfKeyPoint;
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
@@ -63,6 +64,21 @@ public class KeyPointAdapter extends BaseAdapter
 			mkeyPointFs.clear();
 		}
 		Point[] temp=points.toArray();
+		
+		//ц╟ещеепР
+		for(int i=0;i<temp.length-1;i++)
+		{
+			for(int j=0;j<temp.length-1-i;j++)
+			{
+				if((temp[j].x==temp[j+1].x&&temp[j].y>temp[j+1].y)||temp[j].x>temp[j+1].x)
+				{
+					Point t=temp[j];
+					temp[j]=temp[j+1];
+					temp[j+1]=t;
+				}
+			}
+		}
+		
 		for(int i=0;i<temp.length;i++)
 		{
 			mkeyPointFs.add(new PointF((float)temp[i].x,(float)temp[i].y));

@@ -45,6 +45,10 @@ public class AFunctionSelected extends ListActivity
 			intent.setClass(AFunctionSelected.this, APhotoPicking.class);
 			switch (position)
 			{
+				case 0:
+				{
+					intent.putExtra(IntentKey.PickState.toString(), APhotoPicking.PickState_Dect);
+				}break;
 				case 1:
 				{
 					intent.putExtra(IntentKey.PickState.toString(), APhotoPicking.PickState_Dect);

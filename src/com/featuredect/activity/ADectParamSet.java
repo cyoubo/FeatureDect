@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -28,6 +29,7 @@ public class ADectParamSet extends Activity
 	private SeekBar seekBar;
 	private RadioGroup radioGroup;
 	private Button btn_sure,btn_cancl;
+	private ImageView ig_add,ig_reduce;
 	
 	private DectingParam param;
 	
@@ -38,6 +40,7 @@ public class ADectParamSet extends Activity
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.adectparamset);
 		Initialiazation();
+		this.setTitle("提取参数设置");
 		
 		param =(DectingParam)getIntent().getExtras().getSerializable(IntentKey.DectingParam.toString());
 		UpdateUI();
@@ -54,6 +57,34 @@ public class ADectParamSet extends Activity
 			intent.putExtra(IntentKey.DectingParam.toString(), param);
 			setResult(2,intent);
 			finish();
+		}
+	};
+	
+	private OnClickListener addListener=new OnClickListener()
+	{
+		
+		@Override
+		public void onClick(View v)
+		{
+			if(param.getBinaryvalue()<255)
+			{
+				param.setBinaryvalue(param.getBinaryvalue()+1);	
+				UpdateUI();
+			}
+		}
+	};
+	
+	private OnClickListener reduceListener=new OnClickListener()
+	{
+		
+		@Override
+		public void onClick(View v)
+		{
+			if(param.getBinaryvalue()>0)
+			{
+				param.setBinaryvalue(param.getBinaryvalue()-1);	
+				UpdateUI();
+			}
 		}
 	};
 	
@@ -141,9 +172,14 @@ public class ADectParamSet extends Activity
 		radioGroup=(RadioGroup)findViewById(R.id.adectparamset_radioGroup);
 		btn_cancl=(Button)findViewById(R.id.adectparamset_btn_cancl);
 		btn_sure=(Button)findViewById(R.id.adectparamset_btn_sure);
+		ig_add=(ImageView)findViewById(R.id.dectparamset_ig_add);
+		ig_reduce=(ImageView)findViewById(R.id.dectparamset_ig_reduce);
 		
 		btn_cancl.setOnClickListener(canclListener);
 		btn_sure.setOnClickListener(sureClickListener);
+		
+		ig_add.setOnClickListener(addListener);
+		ig_reduce.setOnClickListener(reduceListener);
 		
 		radioGroup.setOnCheckedChangeListener(changeListener);
 		

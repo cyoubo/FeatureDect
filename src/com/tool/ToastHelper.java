@@ -28,6 +28,11 @@ public class ToastHelper
 		Toast.makeText(context, "还有数据未输入", Toast.LENGTH_SHORT).show();
 	}
 	
+	public static void ShowDataNotPick(Context context)
+	{
+		Toast.makeText(context, "数据未选取", Toast.LENGTH_SHORT).show();
+	}
+	
 	public static void ShowDeleteStateToast(Context context,boolean state)
 	{
 		String text=state?"删除成功":"删除失败";
