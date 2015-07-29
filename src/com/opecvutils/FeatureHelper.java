@@ -1,5 +1,7 @@
 package com.opecvutils;
 
+import java.util.Arrays;
+
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfKeyPoint;
@@ -10,10 +12,7 @@ import org.opencv.core.TermCriteria;
 import org.opencv.features2d.FeatureDetector;
 import org.opencv.features2d.Features2d;
 import org.opencv.features2d.KeyPoint;
-import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
-
-import android.util.Log;
 
 public class FeatureHelper
 {
@@ -101,15 +100,22 @@ public class FeatureHelper
 	/**
 	 * 获取已提出的特征点<br>
 	 * <b>使用该方法前，Detect()必须已经成功调用</b>
+	 * @param Issort 标示符，是否对提取结果按照坐标数值进行排序
 	 * 结果存储于MatOfPoint2f对象中
 	 * */
-	public MatOfPoint2f getKeyPoints_AsMatofPoint2f()
+	public MatOfPoint2f getKeyPoints_AsMatofPoint2f(boolean Issort)
 	{
 		KeyPoint[] temp=mKeyPoints.toArray();
 		Point[] points=new Point[temp.length];
 		for(int i=0;i<points.length;i++)
 		{
 			points[i]=new Point(temp[i].pt.x,temp[i].pt.y);
+		}
+		
+		if(Issort)
+		{
+			PointComparator comparator=new PointComparator(0.00001);
+			Arrays.sort(points,comparator);
 		}
 		MatOfPoint2f result=new MatOfPoint2f(points);
 		return result;
@@ -121,7 +127,7 @@ public class FeatureHelper
 	 * */
 	public MatOfPoint2f FindSubPix()
 	{
-		MatOfPoint2f basepoint=getKeyPoints_AsMatofPoint2f();
+		MatOfPoint2f basepoint=getKeyPoints_AsMatofPoint2f(false);
 		Mat dst=null;
 		if(mImage.type()!=CvType.CV_8UC1)
 		{
@@ -179,5 +185,6 @@ public class FeatureHelper
 	{
 		return mDectector==null;
 	}
+	
 	
 }

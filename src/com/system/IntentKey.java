@@ -14,7 +14,13 @@ public enum IntentKey
 	 * 含义：标记跳转至Aphotopicking时状态<br>
 	 * 用法：用于与APhotoPicking.PickState_Dect等常量形成键值对
 	 * */
-	PickState
+	PickState,
+	/**
+	 * 含义：标记跳转至AExternalSolve时状态<br>
+	 * 用法：true 则为解算模式，false则为浏览模式
+	 * */
+	IsSolve
+	
 	
 	
 }

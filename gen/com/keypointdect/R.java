@@ -67,7 +67,7 @@ containing a value of this type.
         public static final int abinarytest_ed_step=0x7f040006;
         public static final int abinarytest_imageView=0x7f040009;
         public static final int abinarytest_tv_binaryvalue=0x7f040004;
-        public static final int action_settings=0x7f04003e;
+        public static final int action_settings=0x7f04003f;
         public static final int adectparamset_binaryvalue=0x7f04000a;
         public static final int adectparamset_btn_cancl=0x7f040012;
         public static final int adectparamset_btn_sure=0x7f040013;
@@ -112,17 +112,18 @@ containing a value of this type.
         public static final int aroidectorlistdisplay_listview_keypoint=0x7f040034;
         public static final int aroidectorlistdisplay_tv_currentindex=0x7f040031;
         public static final int aroidectorlistdisplay_tv_more=0x7f040032;
-        public static final int atouchtopickpoint_btn_cancl=0x7f040038;
-        public static final int atouchtopickpoint_btn_sure=0x7f040039;
-        public static final int atouchtopickpoint_linearlayout=0x7f040037;
-        public static final int awaitloading_tv_info=0x7f04003a;
+        public static final int atouchtopickpoint_btn_cancl=0x7f040039;
+        public static final int atouchtopickpoint_btn_sure=0x7f04003a;
+        public static final int atouchtopickpoint_linearlayout=0x7f040038;
+        public static final int awaitloading_tv_info=0x7f04003b;
         public static final int back=0x7f040001;
         public static final int dectparamset_ig_add=0x7f04000d;
         public static final int dectparamset_ig_reduce=0x7f04000b;
         public static final int front=0x7f040002;
-        public static final int pointfadapteritem_text=0x7f04003b;
-        public static final int tool_photothumbnailitem_imageView=0x7f04003c;
-        public static final int tool_photothumbnailitem_textView=0x7f04003d;
+        public static final int pointfadapteritem_text=0x7f04003c;
+        public static final int textView1=0x7f040037;
+        public static final int tool_photothumbnailitem_imageView=0x7f04003d;
+        public static final int tool_photothumbnailitem_textView=0x7f04003e;
     }
     public static final class layout {
         public static final int abinarytest=0x7f030000;

@@ -3,7 +3,6 @@ package com.component;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.opencv.core.Core;
 import org.opencv.core.MatOfKeyPoint;
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
@@ -30,9 +29,9 @@ public class KeyPointAdapter extends BaseAdapter
 	private List<PointF> mkeyPointFs;
 	/**修正系数，用于完成ROI局部坐标系与提取影像的坐标系的转化 */
 	private float[] mRevise;
-	
 	/**用于记录最终挑选的唯一一个特征点*/
 	private int mResultIndex=-1;
+
 	
 	public KeyPointAdapter(Context context)
 	{
@@ -64,21 +63,6 @@ public class KeyPointAdapter extends BaseAdapter
 			mkeyPointFs.clear();
 		}
 		Point[] temp=points.toArray();
-		
-		//冒泡排序
-		for(int i=0;i<temp.length-1;i++)
-		{
-			for(int j=0;j<temp.length-1-i;j++)
-			{
-				if((temp[j].x==temp[j+1].x&&temp[j].y>temp[j+1].y)||temp[j].x>temp[j+1].x)
-				{
-					Point t=temp[j];
-					temp[j]=temp[j+1];
-					temp[j+1]=t;
-				}
-			}
-		}
-		
 		for(int i=0;i<temp.length;i++)
 		{
 			mkeyPointFs.add(new PointF((float)temp[i].x,(float)temp[i].y));
@@ -99,6 +83,8 @@ public class KeyPointAdapter extends BaseAdapter
 		this.mRevise[1]=center.y;
 		this.mRevise[2]=radius;
 	}
+	
+
 	
 	
 	@Override
@@ -131,7 +117,11 @@ public class KeyPointAdapter extends BaseAdapter
 			LayoutInflater inflater=LayoutInflater.from(mContext);
 			convertView=inflater.inflate(R.layout.pointfadapteritem, null);
 			TextView tv=(TextView)convertView.findViewById(R.id.pointfadapteritem_text);
-			PointF tempF=RevisePoint(position);
+			//坐标反算
+			//PointF tempF=RevisePoint(position);
+			//tv.setText(String.format("( %3.6f , %3.6f )", tempF.x,tempF.y));
+			//坐标不反算
+			PointF tempF=mkeyPointFs.get(position);
 			tv.setText(String.format("( %3.6f , %3.6f )", tempF.x,tempF.y));
 			if(mResultIndex==position)
 			{

@@ -3,6 +3,7 @@ package com.featuredect.activity;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,11 +24,15 @@ import com.component.SQLiteOrmHelperPHM;
 import com.keypointdect.R;
 import com.opecvutils.BitmapHelper_CV;
 import com.system.GlobleParam;
+import com.system.IntentKey;
 import com.system.SystemUtils;
 import com.tool.ImageProjection;
 import com.tool.ToastHelper;
 import com.tool.SqliteHelperOrm.SQLiteOrmSDContext;
 
+/**
+ * 用于完成像控点地面点坐标的输入
+ * */
 public class AImageControlInput extends Activity  
 {
 	private LinearLayout linearLayout;
@@ -125,7 +130,12 @@ public class AImageControlInput extends Activity
 					count=count+phm.getREFeaturesBeans().update(temp);
 				}
 				if(count==listbeans.size())
+				{
 					ToastHelper.ShowSaveStateToast(context, true);
+					Intent intent=new Intent(AImageControlInput.this, AExternalSolve.class);
+					intent.putExtra(IntentKey.IsSolve.toString(), false);
+					startActivity(intent);
+				}
 			}
 			else
 			{				

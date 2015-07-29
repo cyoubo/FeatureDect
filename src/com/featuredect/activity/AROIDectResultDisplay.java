@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckedTextView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,7 +36,7 @@ public class AROIDectResultDisplay extends Activity
 	private LinearLayout linearLayout;
 	private KeyPointImageView imageView;
 	private TextView currentindexView;
-	private CheckedTextView cktv_more;
+	private ImageView cktv_more;
 
 	private KeyPointAdapter adapter;
 	
@@ -77,7 +78,7 @@ public class AROIDectResultDisplay extends Activity
 		currentindexView=(TextView)findViewById(R.id.aroidectorlistdisplay_tv_currentindex);
 		
 		//为公用一个layout文件，在此activity中以下控件绑定后设置为不可见状态
-		cktv_more=(CheckedTextView)findViewById(R.id.aroidectorlistdisplay_tv_more);
+		cktv_more=(ImageView)findViewById(R.id.aroidectorlistdisplay_tv_more);
 		cktv_more.setVisibility(View.GONE);
 		btn_cancl=(Button)findViewById(R.id.aroidectorlistdisplay_btn_cancl);
 		btn_cancl.setVisibility(View.GONE);
@@ -108,7 +109,7 @@ public class AROIDectResultDisplay extends Activity
 		}
 		else 
 		{
-			Intent intent=new Intent(this, APhotoPicking.class);
+			Intent intent=new Intent(this, AWaitLoading.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			return true;

@@ -21,6 +21,7 @@ import com.beans.ExternalBeans;
 import com.component.SQLiteOrmHelperPHM;
 import com.keypointdect.R;
 import com.system.GlobleParam;
+import com.system.IntentKey;
 import com.system.SystemUtils;
 import com.tool.ToastHelper;
 import com.tool.SqliteHelperOrm.SQLiteOrmSDContext;
@@ -54,7 +55,7 @@ public class AExternalSolve extends Activity
 	{
 		// TODO Auto-generated method stub
 		super.onStart();
-		if(flag_IsSaveExif)
+		if(getIntent().getExtras().getBoolean(IntentKey.IsSolve.toString()))
 		{
 			PrepareBeans();
 		}
@@ -155,6 +156,8 @@ public class AExternalSolve extends Activity
 		try
 		{
 			beans=phm.getREExternalBeans().queryForEq("Image", imagepath).get(0);
+			btn_cancl.setVisibility(View.GONE);
+			btn_sure.setVisibility(View.GONE);
 		}
 		catch (Exception e)
 		{

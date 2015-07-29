@@ -140,7 +140,7 @@ public class AROIDectorListDisplay extends Activity
 			/*执行特征点***/
 			detector.Detect();
 			/*更新特征点列表：对提取的特征点进行亚像素级的定位**/
-			adapter.SetMatOfPoint(detector.getKeyPoints_AsMatofPoint2f());
+			adapter.SetMatOfPoint(detector.getKeyPoints_AsMatofPoint2f(true));
 			listView_Keypoint.setAdapter(adapter);
 			listView_Keypoint.setOnItemClickListener(adapterItemClickListener);
 		}

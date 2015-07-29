@@ -5,12 +5,21 @@
     android:background="@color/backgroud"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请触摸屏幕选取像控点大致位置"
+        android:textColor="#880F0F0F"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <LinearLayout
         android:id="@+id/atouchtopickpoint_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical" >
+
     </LinearLayout>
 
     <LinearLayout
