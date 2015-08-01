@@ -19,7 +19,16 @@ public enum IntentKey
 	 * 含义：标记跳转至AExternalSolve时状态<br>
 	 * 用法：true 则为解算模式，false则为浏览模式
 	 * */
-	IsSolve
+	IsSolve,
+	/**
+	 * 含义：标记跳转至APixelSizeInput时状态<br>
+	 * 用法：true 则为输入模式，false则为修改模式
+	 * */
+	IsPixelSizeInput,
+	/**
+	 * 含义：标记传递的数据为像原大小beans
+	 * */
+	PixelSizeBeans
 	
 	
 	

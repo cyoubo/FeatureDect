@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.beans.ExternalBeans;
 import com.beans.FeaturesBeans;
+import com.beans.PixelSizeBeans;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.tool.SqliteHelperOrm.SQLiteOrmHelper;
@@ -81,5 +82,30 @@ public class SQLiteOrmHelperPHM extends SQLiteOrmHelper
 	{
 		return getRuntimeExceptionDao(FeaturesBeans.class);
 	} 
-
+	/**获得简单操作的PixelSizeBeans的Dao对象*/
+	public Dao<PixelSizeBeans, Integer> getPixelSizeBeans()
+	{
+		Dao<PixelSizeBeans, Integer> resultDao=null;
+		 
+		try
+		{
+			 resultDao=getDao(PixelSizeBeans.class);
+		}
+		catch (Exception e)
+		{
+			Log.e("demo", "getImagePointDao"+e.getMessage());
+		}
+		 return resultDao;
+	}
+	
+	/**获得复杂操作的PixelSizeBeans的Dao对象*/
+	public RuntimeExceptionDao<PixelSizeBeans, Integer> getREPixelSizeBeans()
+	{
+		return getRuntimeExceptionDao(PixelSizeBeans.class);
+	} 
+	/**打开外键约束*/
+	public void OpenForkey()
+	{
+		getReadableDatabase().execSQL("PRAGMA foreign_keys=ON");
+	}
 }

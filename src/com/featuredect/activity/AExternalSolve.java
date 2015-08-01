@@ -9,7 +9,10 @@ import org.opencv.core.Size;
 import PHM.Resection.QuaternionSolver;
 import PHM.Resection.ResectionHelper;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -113,36 +116,8 @@ public class AExternalSolve extends Activity
 		beans=new ExternalBeans();
 		beans.setImage(imagepath);	
 		
-		//以下为测试方法
-		ResectionHelper resectionHelper=new ResectionHelper(60, new Size(1280, 768));
+		new SolveBackGroundTask().execute();
 		
-		Point[] ImagePoints=new Point[3];
-		ImagePoints[0]=new Point(-110.507847,-68.98609);
-		ImagePoints[1]=new Point(-60.423020,83.81937);
-		ImagePoints[2]=new Point(2.491663,58.48397);
-		MatOfPoint2f imagepoints=new MatOfPoint2f(ImagePoints);
-		
-		Point3[] LandPoints=new Point3[3];
-		LandPoints[0]=new Point3(36589.41,25273.32,2195.17);
-		LandPoints[1]=new Point3(37631.08,31324.51, 728.69);
-		LandPoints[2]=new Point3(40426.54,30319.81, 757.31);
-		MatOfPoint3f landoints=new MatOfPoint3f(LandPoints);
-		
-		
-		resectionHelper.SetIntrinsicMatrix(153.24, 2, 2);
-		resectionHelper.SetImagePoints(imagepoints, true);
-		resectionHelper.SetLandPoints(landoints);
-		resectionHelper.SetResectionSolver(new QuaternionSolver());
-		resectionHelper.Solve();
-		
-		double[] resultR=resectionHelper.GetRomateAngelValues(false);
-		double[] resultT=resectionHelper.GetTranlateValues();
-		beans.setPhi(resultR[0]);
-		beans.setOmiga(resultR[1]);
-		beans.setKappa(resultR[2]);
-		beans.setX(resultT[0]);
-		beans.setY(resultT[1]);
-		beans.setZ(resultT[2]);
 	}
 	
 	/**
@@ -193,7 +168,9 @@ public class AExternalSolve extends Activity
 		@Override
 		public void onClick(View v)
 		{
-			// TODO Auto-generated method stub
+			Intent intent=new Intent(AExternalSolve.this, AWaitLoading.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
 			
 		}
 	};
@@ -207,4 +184,75 @@ public class AExternalSolve extends Activity
 			flag_IsSaveExif=isChecked;
 		}
 	};
+	
+	/**
+	 * 用于实现外方位元素解算的后台线程
+	 * */
+	private class SolveBackGroundTask extends AsyncTask<Void, Void, Void>
+	{
+
+		private double[] resultR;
+		private double[] resultT;
+		@Override
+		protected Void doInBackground(Void... params)
+		{
+			//以下为测试方法
+			ResectionHelper resectionHelper=new ResectionHelper(60, new Size(1280, 768));
+			
+			Point[] ImagePoints=new Point[3];
+			ImagePoints[0]=new Point(-110.507847,-68.98609);
+			ImagePoints[1]=new Point(-60.423020,83.81937);
+			ImagePoints[2]=new Point(2.491663,58.48397);
+			MatOfPoint2f imagepoints=new MatOfPoint2f(ImagePoints);
+			
+			Point3[] LandPoints=new Point3[3];
+			LandPoints[0]=new Point3(36589.41,25273.32,2195.17);
+			LandPoints[1]=new Point3(37631.08,31324.51, 728.69);
+			LandPoints[2]=new Point3(40426.54,30319.81, 757.31);
+			MatOfPoint3f landoints=new MatOfPoint3f(LandPoints);
+			
+			resectionHelper.SetIntrinsicMatrix(153.24, 2, 2);
+			resectionHelper.SetImagePoints(imagepoints, true);
+			resectionHelper.SetLandPoints(landoints);
+			resectionHelper.SetResectionSolver(new QuaternionSolver());
+			resectionHelper.Solve();
+			
+			resultR=resectionHelper.GetRomateAngelValues(false);
+			resultT=resectionHelper.GetTranlateValues();
+			
+			return null;
+		}
+		@Override
+		protected void onPostExecute(Void result)
+		{
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			
+			beans.setPhi(resultR[0]);
+			beans.setOmiga(resultR[1]);
+			beans.setKappa(resultR[2]);
+			beans.setX(resultT[0]);
+			beans.setY(resultT[1]);
+			beans.setZ(resultT[2]);
+			
+			UpdatebyBeans();
+		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		// TODO Auto-generated method stub
+		if(keyCode!=KeyEvent.KEYCODE_BACK)
+		{
+			return super.onKeyDown(keyCode, event);
+		}
+		else 
+		{
+			Intent intent=new Intent(this, AWaitLoading.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			return true;
+		}
+	}
 }

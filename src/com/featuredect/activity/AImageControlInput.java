@@ -133,7 +133,7 @@ public class AImageControlInput extends Activity
 				{
 					ToastHelper.ShowSaveStateToast(context, true);
 					Intent intent=new Intent(AImageControlInput.this, AExternalSolve.class);
-					intent.putExtra(IntentKey.IsSolve.toString(), false);
+					intent.putExtra(IntentKey.IsSolve.toString(), true);
 					startActivity(intent);
 				}
 			}

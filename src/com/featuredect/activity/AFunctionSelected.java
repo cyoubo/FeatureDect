@@ -24,7 +24,7 @@ public class AFunctionSelected extends ListActivity
 	{
 		super.onCreate(savedInstanceState);
 		adapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-		adapter.addAll(new String[]{"导入控制点文件","选取像控点","后方交会解算","产看结果"});
+		adapter.addAll(new String[]{"导入控制点文件","选取像控点","后方交会解算","产看结果","像元大小管理"});
 		getListView().setAdapter(adapter);
 		getListView().setOnItemClickListener(listener);
 		
@@ -60,6 +60,10 @@ public class AFunctionSelected extends ListActivity
 				case 3:
 				{
 					intent.putExtra(IntentKey.PickState.toString(), APhotoPicking.PickState_Scan);
+				}break;
+				case 4:
+				{
+					intent.setClass(AFunctionSelected.this, APixelSizeListDisplay.class);
 				}break;
 				default:
 					break;

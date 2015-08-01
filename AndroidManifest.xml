@@ -35,6 +35,8 @@
         <activity android:name="com.featuredect.activity.AFunctionSelected" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity android:name="com.featuredect.activity.AImageControlInput" android:screenOrientation="landscape" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity android:name="com.featuredect.activity.AExternalSolve" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+        <activity android:name="com.featuredect.activity.APixelSizeInput" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+        <activity android:name="com.featuredect.activity.APixelSizeListDisplay" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
     </application>
 
 </manifest>

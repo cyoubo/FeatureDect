@@ -38,4 +38,9 @@ public class ToastHelper
 		String text=state?"É¾³ý³É¹¦":"É¾³ýÊ§°Ü";
 		Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
 	}
+	
+	public static void ShowTitle(Context context,String title)
+	{
+		Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
+	}
 }
